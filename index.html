@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Users Data</title>
+    <link rel="stylesheet" href="style.css"/>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <script src="tableManager.js"></script>
+  </head>
+
+  <body>
+
+    <!-- As a heading -->
+    <nav class="navbar bg-light shadow p-3 mb-5 bg-body rounded">
+      <div class="container-fluid">
+        <span class="navbar-brand mb-0 h1">Get Supermind</span>
+      </div>
+    </nav>
+
+    <div class="container mt-5">
+	     
+       
+        <table class="tablemanager table">
+           <thead class="bg-light">
+                  <tr>
+                    <th> Name</th>
+                    <th>Status</th>
+                    <th>Gender</th>
+                    <th>Credit Card Number</th>
+                    <th>Address</hthr>
+                    
+                  </tr>
+           </thead>
+
+           <tbody id="body"></tbody>
+
+         </table>  
+
+        </div>
+         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+         <script>
+          fetch("https://random-data-api.com/api/users/random_user?size=100").then((res)=> res.json()).then((data)=> {
+            console.log(data)
+      
+            data.forEach((user) => {
+                $("#body").append(`
+                
+      
+                <tr class="p-2 m-2">
+                      <td>${user.username}</td>
+                      <td class="badge rounded-pill text-bg-info">${user.subscription.status}</td>
+                      <td>${user.gender}</td>
+                      <td>${user.credit_card.cc_number}</td>
+                      <td>${user.address.city}</td>
+                </tr>
+                
+                `)
+            });
+      
+            $(".tablemanager").tablemanager({
+      
+              firstSort: [[3,0],[2,0],[1,'asc']],
+              appendFilterby: true,
+              debug: true,
+              vocabulary: {
+              voc_filter_by: 'Filter By',
+              voc_type_here_filter: 'Search',
+              voc_show_rows: 'Showing'
+            },
+            pagination: true,
+            showrows: [10,20,50,100],
+            })
+      
+          })
+         </script>
+
+  </body>
+</html>
